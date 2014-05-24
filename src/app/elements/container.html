@@ -1,0 +1,30 @@
+<rect ng-attr-x="{{rect.x}}" ng-attr-y="{{rect.y}}"
+    ng-attr-width="{{rect.width}}" ng-attr-height="{{rect.height}}"
+    style="fill:{{rect.fill}};cursor:move;"
+    ng-mousedown="onMouseDown($event, 'container')"
+    ng-mousemove="onMouseMove($event)"
+    ng-mouseup="onMouseUp($event)"></rect>
+<rect ng-attr-x="{{rect.x-halfHandleSize}}" ng-attr-y="{{rect.y-halfHandleSize}}"
+    ng-attr-width="{{handleSize}}" ng-attr-height="{{handleSize}}"
+    style="fill:white;stroke:black;cursor:nw-resize;"
+    ng-mousedown="onMouseDown($event, 'nw')"
+    ng-mousemove="onMouseMove($event)"
+    ng-mouseup="onMouseUp($event)"></rect>
+<rect ng-attr-x="{{rect.x+rect.width-halfHandleSize}}" ng-attr-y="{{rect.y-halfHandleSize}}"
+    ng-attr-width="{{handleSize}}" ng-attr-height="{{handleSize}}"
+    style="fill:white;stroke:black;cursor:ne-resize;"
+    ng-mousedown="onMouseDown($event, 'ne')"
+    ng-mousemove="onMouseMove($event)"
+    ng-mouseup="onMouseUp($event)"></rect>
+<rect ng-attr-x="{{rect.x+rect.width-halfHandleSize}}" ng-attr-y="{{rect.y+rect.height-halfHandleSize}}"
+    ng-attr-width="{{handleSize}}" ng-attr-height="{{handleSize}}"
+    style="fill:white;stroke:black;cursor:se-resize;"
+    ng-mousedown="onMouseDown($event, 'se')"
+    ng-mousemove="onMouseMove($event)"
+    ng-mouseup="onMouseUp($event)"></rect>
+<rect ng-attr-x="{{rect.x-halfHandleSize}}" ng-attr-y="{{rect.y+rect.height-halfHandleSize}}"
+    ng-attr-width="{{handleSize}}" ng-attr-height="{{handleSize}}"
+    style="fill:white;stroke:black;cursor:sw-resize;"
+    ng-mousedown="onMouseDown($event, 'sw')"
+    ng-mousemove="onMouseMove($event)"
+    ng-mouseup="onMouseUp($event)"></rect>

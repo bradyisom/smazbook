@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app="smazbook">
+  <head>
+    <meta charset="utf-8"/>
+    <title>smazbook</title>
+    <!-- inject:vendor:css -->
+    <!-- endinject -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/todo/todo.css">
+    <!-- endinject -->
+  </head>
+  <body>
+    <hgroup>
+      <h1>smazbook</h1>
+    </hgroup>
+    <ng-view></ng-view>
+    <script src="/jquery/dist/jquery.js"></script>
+    <!-- inject:vendor:js -->
+    <script src="/angular/angular.js"></script>
+    <script src="/angular-route/angular-route.js"></script>
+    <script src="/lodash/dist/lodash.compat.js"></script>
+    <!-- endinject -->
+    <!-- inject:js -->
+    <script src="/smazbook-templates.js"></script>
+    <script src="/todo/todo.js"></script>
+    <script src="/app.js"></script>
+    <script src="/todo/todo-controller.js"></script>
+    <script src="/elements/container.js"></script>
+    <script src="/svg/createSvgNode.js"></script>
+    <script src="/test/testSvgCtrl.js"></script>
+    <!-- endinject -->
+  </body>
+</html>

@@ -12,6 +12,7 @@ class WorkspaceState
                 x: event.pageX
                 y: event.pageY
             originalRect: _.pick widget, ['x', 'y', 'width', 'height']
+        event.stopPropagation()
 
     move: (event)->
         return if not @moveState

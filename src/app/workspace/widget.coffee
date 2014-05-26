@@ -4,8 +4,9 @@ angular.module('smazbook').directive 'canvasWidget', (createSVGNode, $document, 
     scope:
         state: '='
         widget: '='
+        handleSize: '=?'
     link: (scope, el, attrs)->
-        scope.handleSize = 10
+        scope.handleSize or= 10
         scope.halfHandleSize = scope.handleSize / 2
 
         el = createSVGNode('g', el, attrs)

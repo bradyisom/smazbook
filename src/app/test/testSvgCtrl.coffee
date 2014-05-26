@@ -16,13 +16,14 @@ class TestSvgCtrl
             height: 200
             fill: 'blue'
         ,
-            x: 10
-            y: 10
-            width: 150
-            height: 150
+            x: 50
+            y: 50
+            width: 200
+            # height: 200
             type: 'text'
             text: 'Hello World! Some more text goes here.'
             fill: 'green'
+            stroke: 'yellow'
         ]
         @handleSize = 10
         @halfHandleSize = @handleSize / 2

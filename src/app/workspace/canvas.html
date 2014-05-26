@@ -2,5 +2,5 @@
     ng-mousemove="state.move($event)"
     ng-mouseup="state.endMove($event)"
     ng-mouseleave="state.cancelMove($event)">
-    <widget ng-repeat="rect in rects" state="state" rect="rect"></widget>
+    <canvas-widget ng-repeat="widget in widgets" state="state" widget="widget"></canvas-widget>
 </svg>

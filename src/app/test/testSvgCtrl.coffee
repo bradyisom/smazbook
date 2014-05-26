@@ -1,7 +1,7 @@
 class TestSvgCtrl
     @$inject: ['$scope', 'WorkspaceState']
     constructor: (@$scope, WorkspaceState)->
-        @rects = [
+        @widgets = [
             x: 100
             y: 100
             width: 300

@@ -4,5 +4,5 @@ angular.module('smazbook')
     restrict: 'EA'
     scope:
         state: '='
-        rects: '='
+        widgets: '='
     link: (scope, el, attrs)->

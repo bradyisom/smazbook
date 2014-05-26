@@ -1,4 +1,4 @@
-angular.module('smazbook').directive 'canvasWidget', (createSVGNode, $document, $sce)->
+angular.module('smazbook').directive 'canvasWidget', ($sce)->
     templateUrl: '/smazbook/workspace/widget.html'
     restrict: 'EA'
     scope:
@@ -9,10 +9,11 @@ angular.module('smazbook').directive 'canvasWidget', (createSVGNode, $document, 
         scope.handleSize or= 10
         scope.halfHandleSize = scope.handleSize / 2
 
-        el = createSVGNode('g', el, attrs)
+        scope.isSvgWidget = (widget)->
+            widget.type != 'text'
 
-        scope.onMouseDown = (event, target)->
-            scope.state.startMove event, scope.widget, target
+        scope.isDivWidget = (widget)->
+            widget.type == 'text'
 
         scope.getHref = ->
             $sce.trustAsResourceUrl scope.widget.href

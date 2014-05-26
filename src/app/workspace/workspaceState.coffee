@@ -38,6 +38,8 @@ class WorkspaceState
                 @moveState.widget.width -= diffX
                 @moveState.widget.height += diffY
                 @moveState.widget.x = Math.min(@moveState.originalRect.x + @moveState.originalRect.width, Math.max(0, @moveState.widget.x))
+            when 'ew'
+                @moveState.widget.width += diffX
             else
                 @moveState.widget.x += diffX
                 @moveState.widget.y += diffY

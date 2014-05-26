@@ -3,16 +3,9 @@
         ng-mouseup="state.endMove($event)"
         ng-mouseleave="state.cancelMove($event)"
         style="border:1px solid black;overflow:hidden">
-    <div ng-repeat="widget in widgets">
-        <svg ng-if="isSvgWidget(widget)"
-            ng-style="{position:'absolute',top:widget.y-halfHandleSize-1,left:widget.x-halfHandleSize-1,width:widget.width + handleSize + 2,height:widget.height + handleSize + 2}">
-            <canvas-widget handle-size="handleSize"
-                state="state" widget="widget"></canvas-widget>
-        </svg>
-        <div ng-if="isDivWidget(widget)"
-            ng-style="{position:'absolute',padding:'1em',top:widget.x,left:widget.y,width:widget.width,height:widget.height,'background-color':(widget.fill || 'transparent'),color:widget.stroke || 'black'}"
-            contenteditable>
-            {{widget.text}}
-        </div>
-    </div>
+    <canvas-widget handle-size="handleSize"
+        state="state" widget="widget"
+        ng-repeat="widget in widgets"
+        ng-style="{position:'absolute',top:widget.y-halfHandleSize-1,left:widget.x-halfHandleSize-1,width:widget.width + handleSize + 2,height:widget.height + handleSize + 2}">
+    </canvas-widget>
 </div>

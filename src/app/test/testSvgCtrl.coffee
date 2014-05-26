@@ -2,14 +2,6 @@ class TestSvgCtrl
     @$inject: ['$scope', 'WorkspaceState']
     constructor: (@$scope, WorkspaceState)->
         @widgets = [
-            x: 100
-            y: 100
-            width: 300
-            height: 300
-            type: 'image'
-            href: 'http://lorempixel.com/300/300/technics'
-            fill: 'red'
-        ,
             x: 200
             y: 50
             width: 250
@@ -24,9 +16,15 @@ class TestSvgCtrl
             text: 'Hello World! Some more text goes here.'
             fill: 'green'
             stroke: 'yellow'
+        ,
+            x: 100
+            y: 100
+            width: 300
+            height: 300
+            type: 'image'
+            href: 'http://lorempixel.com/300/300/technics'
+            fill: 'red'
         ]
-        @handleSize = 10
-        @halfHandleSize = @handleSize / 2
 
         @state = new WorkspaceState()
 

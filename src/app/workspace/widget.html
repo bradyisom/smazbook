@@ -5,6 +5,7 @@
         ng-switch="widget.type">
         <!-- IMAGE -->
         <img ng-switch-when="image" ng-src="{{getHref()}}"
+            class="widget-image"
             ng-style="{height:widget.height,width:widget.width}">
         <!-- TEXT -->
         <div ng-switch-default
@@ -27,7 +28,7 @@
         </rect>
     </svg>
     <svg ng-if="isSvgWidget(widget) || !isTextWidget(widget)"
-        style="position:absolute;left:0;right:0;top:0;bottom:0;"
+        style="position:absolute;left:0;right:0;top:0;bottom:0;cursor:move;"
         ng-mousedown="state.startMove($event, widget, 'container')">
         <g ng-if="isSvgWidget(widget)"
             style="cursor:move">
@@ -64,6 +65,34 @@
             ng-attr-width="{{handleSize}}"
             ng-attr-height="{{handleSize}}"
             ng-mousedown="state.startMove($event, widget, 'sw')">
+        </rect>
+        <rect class="resize-handle resize-handle-ew"
+            ng-attr-x="{{widget.width}}"
+            ng-attr-y="{{widget.height/2}}"
+            ng-attr-width="{{handleSize}}"
+            ng-attr-height="{{handleSize}}"
+            ng-mousedown="state.startMove($event, widget, 'ew')">
+        </rect>
+        <rect class="resize-handle resize-handle-ns"
+            ng-attr-x="{{widget.width/2}}"
+            ng-attr-y="{{widget.height}}"
+            ng-attr-width="{{handleSize}}"
+            ng-attr-height="{{handleSize}}"
+            ng-mousedown="state.startMove($event, widget, 'sn')">
+        </rect>
+        <rect class="resize-handle resize-handle-ew"
+            ng-attr-x="0"
+            ng-attr-y="{{widget.height/2}}"
+            ng-attr-width="{{handleSize}}"
+            ng-attr-height="{{handleSize}}"
+            ng-mousedown="state.startMove($event, widget, 'we')">
+        </rect>
+        <rect class="resize-handle resize-handle-ns"
+            ng-attr-x="{{widget.width/2}}"
+            ng-attr-y="0"
+            ng-attr-width="{{handleSize}}"
+            ng-attr-height="{{handleSize}}"
+            ng-mousedown="state.startMove($event, widget, 'ns')">
         </rect>
     </svg>
 </div>

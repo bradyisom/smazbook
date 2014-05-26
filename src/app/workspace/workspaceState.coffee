@@ -12,47 +12,71 @@ class WorkspaceState
                 x: event.pageX
                 y: event.pageY
             originalRect: _.pick widget, ['x', 'y', 'width', 'height']
+            aspect: widget.width / widget.height
         event.stopPropagation()
 
     move: (event)->
         return if not @moveState
         diffX = event.pageX - @moveState.point.x
         diffY = event.pageY - @moveState.point.y
+
         switch @moveState.mode
             when 'nw'
-                @moveState.widget.x += diffX
-                @moveState.widget.y += diffY
-                @moveState.widget.width -= diffX
-                @moveState.widget.height -= diffY
+                if diffX / @moveState.aspect > diffY
+                    diffX = diffY / @moveState.aspect
+                else
+                    diffY = diffX * @moveState.aspect
+                @moveState.widget.x = @moveState.originalRect.x + diffX
+                @moveState.widget.y = @moveState.originalRect.y + diffY
+                @moveState.widget.width = @moveState.originalRect.width - diffX
+                @moveState.widget.height = @moveState.originalRect.height - diffY
                 @moveState.widget.x = Math.min(@moveState.originalRect.x + @moveState.originalRect.width, Math.max(0, @moveState.widget.x))
                 @moveState.widget.y = Math.min(@moveState.originalRect.y + @moveState.originalRect.height, Math.max(0, @moveState.widget.y))
             when 'ne'
-                @moveState.widget.y += diffY
-                @moveState.widget.width += diffX
-                @moveState.widget.height -= diffY
+                if -(diffX / @moveState.aspect) > diffY
+                    diffX = -(diffY / @moveState.aspect)
+                else
+                    diffY = -(diffX * @moveState.aspect)
+                @moveState.widget.y = @moveState.originalRect.y + diffY
+                @moveState.widget.width = @moveState.originalRect.width + diffX
+                @moveState.widget.height = @moveState.originalRect.height - diffY
                 @moveState.widget.y = Math.min(@moveState.originalRect.y + @moveState.originalRect.height, Math.max(0, @moveState.widget.y))
             when 'se'
-                @moveState.widget.width += diffX
-                @moveState.widget.height += diffY
+                if diffX / @moveState.aspect > diffY
+                    diffY = diffX * @moveState.aspect
+                else
+                    diffX = diffY / @moveState.aspect
+                @moveState.widget.width = @moveState.originalRect.width + diffX
+                @moveState.widget.height = @moveState.originalRect.height + diffY
             when 'sw'
-                @moveState.widget.x += diffX
-                @moveState.widget.width -= diffX
-                @moveState.widget.height += diffY
+                if diffX / @moveState.aspect > -diffY
+                    diffX = -(diffY / @moveState.aspect)
+                else
+                    diffY = -(diffX * @moveState.aspect)
+                @moveState.widget.x = @moveState.originalRect.x + diffX
+                @moveState.widget.width = @moveState.originalRect.width - diffX
+                @moveState.widget.height = @moveState.originalRect.height + diffY
+                @moveState.widget.x = Math.min(@moveState.originalRect.x + @moveState.originalRect.width, Math.max(0, @moveState.widget.x))
+            when 'we'
+                @moveState.widget.x = @moveState.originalRect.x + diffX
+                @moveState.widget.width = @moveState.originalRect.width - diffX
                 @moveState.widget.x = Math.min(@moveState.originalRect.x + @moveState.originalRect.width, Math.max(0, @moveState.widget.x))
             when 'ew'
-                @moveState.widget.width += diffX
+                @moveState.widget.width = @moveState.originalRect.width + diffX
+            when 'ns'
+                @moveState.widget.y = @moveState.originalRect.y + diffY
+                @moveState.widget.height = @moveState.originalRect.height - diffY
+                @moveState.widget.y = Math.min(@moveState.originalRect.y + @moveState.originalRect.height, Math.max(0, @moveState.widget.y))
+            when 'sn'
+                @moveState.widget.height = @moveState.originalRect.height + diffY
             else
-                @moveState.widget.x += diffX
-                @moveState.widget.y += diffY
+                @moveState.widget.x = @moveState.originalRect.x + diffX
+                @moveState.widget.y = @moveState.originalRect.y + diffY
                 @moveState.widget.x = Math.max(0, @moveState.widget.x)
                 @moveState.widget.y = Math.max(0, @moveState.widget.y)
 
         @moveState.widget.width = Math.max(0, @moveState.widget.width)
         @moveState.widget.height = Math.max(0, @moveState.widget.height)
-
-        @moveState.point =
-            x: event.pageX
-            y: event.pageY
 
     endMove: ->
         return if not @moveState
@@ -65,6 +89,8 @@ class WorkspaceState
 
     resetMove: ->
         @moveState = null
+
+
 
 
 angular.module('smazbook').factory 'WorkspaceState', -> WorkspaceState

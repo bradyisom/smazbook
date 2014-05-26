@@ -9,5 +9,5 @@ angular.module('smazbook')
     link: (scope, el, attrs)->
         el.css 'position', 'relative'
 
-        scope.handleSize = 10
+        scope.handleSize = 15
         scope.halfHandleSize = scope.handleSize / 2

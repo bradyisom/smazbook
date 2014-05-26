@@ -1,8 +1,7 @@
 <div class="workspace-canvas"
         ng-mousemove="state.move($event)"
         ng-mouseup="state.endMove($event)"
-        ng-mouseleave="state.cancelMove($event)"
-        style="border:1px solid black;overflow:hidden">
+        ng-mouseleave="state.cancelMove($event)">
     <canvas-widget handle-size="handleSize"
         state="state" widget="widget"
         ng-repeat="widget in widgets"

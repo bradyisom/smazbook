@@ -9,18 +9,20 @@
         <!-- TEXT -->
         <div ng-switch-default
             class="widget-text"
-            ng-style="{padding:'1em',position:'relative','background-color':(widget.fill || 'transparent'),color:(widget.stroke || 'black'), cursor:'move',width:widget.width}">
+            ng-style="{padding:'1em',position:'relative','background-color':(widget.fill || 'transparent'),color:(widget.stroke || 'black'), cursor:'move',width:widget.width}"
+            ng-dblclick="widget.editMode=!widget.editMode"
+            ng-attr-contenteditable="{{widget.editMode}}">
             {{widget.text}}
         </div>
     </div>
     <!-- TEXT RESIZE -->
     <svg ng-if="isTextWidget(widget)"
         ng-style="{position:'absolute',right:-halfHandleSize,width:handleSize+1,top:'2em', left:widget.width, 'margin-top':-halfHandleSize, height:handleSize, 'margin-right':'-2em'}">
-        <rect ng-attr-x="0"
+        <rect class="resize-handle resize-handle-ew"
+            ng-attr-x="0"
             ng-attr-y="0"
             ng-attr-width="{{handleSize}}"
             ng-attr-height="{{handleSize}}"
-            style="fill:white;stroke:black;cursor:ew-resize;"
             ng-mousedown="state.startMove($event, widget, 'ew')">
         </rect>
     </svg>
@@ -38,29 +40,29 @@
             </rect>
         </g>
         <!-- SIZE HANDLES -->
-        <rect ng-attr-x="0" ng-attr-y="0"
+        <rect class="resize-handle resize-handle-nw"
+            ng-attr-x="0" ng-attr-y="0"
             ng-attr-width="{{handleSize}}"
             ng-attr-height="{{handleSize}}"
-            style="fill:white;stroke:black;cursor:nw-resize;"
             ng-mousedown="state.startMove($event, widget, 'nw')">
         </rect>
-        <rect ng-attr-x="{{widget.width}}" ng-attr-y="0"
+        <rect class="resize-handle resize-handle-ne"
+            ng-attr-x="{{widget.width}}" ng-attr-y="0"
             ng-attr-width="{{handleSize}}"
             ng-attr-height="{{handleSize}}"
-            style="fill:white;stroke:black;cursor:ne-resize;"
             ng-mousedown="state.startMove($event, widget, 'ne')">
         </rect>
-        <rect ng-attr-x="{{widget.width}}"
+        <rect class="resize-handle resize-handle-se"
+            ng-attr-x="{{widget.width}}"
             ng-attr-y="{{widget.height}}"
             ng-attr-width="{{handleSize}}"
             ng-attr-height="{{handleSize}}"
-            style="fill:white;stroke:black;cursor:se-resize;"
             ng-mousedown="state.startMove($event, widget, 'se')">
         </rect>
-        <rect ng-attr-x="0" ng-attr-y="{{widget.height}}"
+        <rect class="resize-handle resize-handle-sw"
+            ng-attr-x="0" ng-attr-y="{{widget.height}}"
             ng-attr-width="{{handleSize}}"
             ng-attr-height="{{handleSize}}"
-            style="fill:white;stroke:black;cursor:sw-resize;"
             ng-mousedown="state.startMove($event, widget, 'sw')">
         </rect>
     </svg>

@@ -1,5 +1,5 @@
-angular.module('smazbook').directive 'elementContainer', (createSVGNode, $document)->
-    templateUrl: '/smazbook/elements/container.html'
+angular.module('smazbook').directive 'widget', (createSVGNode, $document, $sce)->
+    templateUrl: '/smazbook/workspace/widget.html'
     restrict: 'EA'
     scope:
         rect: '='
@@ -13,9 +13,15 @@ angular.module('smazbook').directive 'elementContainer', (createSVGNode, $docume
 
         moveMode = ''
         point = null
+        originalRect = null
+        resetMode = ->
+            moveMode = ''
+            point = null
+            originalRect = null
 
         scope.onMouseDown = (event, target)->
             moveMode = target
+            originalRect = angular.copy scope.rect
             point =
                 x: event.pageX
                 y: event.pageY
@@ -30,10 +36,13 @@ angular.module('smazbook').directive 'elementContainer', (createSVGNode, $docume
                     scope.rect.y += diffY
                     scope.rect.width -= diffX
                     scope.rect.height -= diffY
+                    scope.rect.x = Math.min(originalRect.x + originalRect.width, Math.max(0, scope.rect.x))
+                    scope.rect.y = Math.min(originalRect.y + originalRect.height, Math.max(0, scope.rect.y))
                 when 'ne'
                     scope.rect.y += diffY
                     scope.rect.width += diffX
                     scope.rect.height -= diffY
+                    scope.rect.y = Math.min(originalRect.y + originalRect.height, Math.max(0, scope.rect.y))
                 when 'se'
                     scope.rect.width += diffX
                     scope.rect.height += diffY
@@ -41,16 +50,39 @@ angular.module('smazbook').directive 'elementContainer', (createSVGNode, $docume
                     scope.rect.x += diffX
                     scope.rect.width -= diffX
                     scope.rect.height += diffY
+                    scope.rect.x = Math.min(originalRect.x + originalRect.width, Math.max(0, scope.rect.x))
                 else
                     scope.rect.x += diffX
                     scope.rect.y += diffY
+                    scope.rect.x = Math.max(0, scope.rect.x)
+                    scope.rect.y = Math.max(0, scope.rect.y)
+
+            scope.rect.width = Math.max(0, scope.rect.width)
+            scope.rect.height = Math.max(0, scope.rect.height)
+
             point =
                 x: event.pageX
                 y: event.pageY
 
         scope.onMouseUp = (event)->
             return if not moveMode
-            moveMode = ''
-            point = null
+            resetMode()
+
+        onMouseLeave = (event)->
+            return if not moveMode
+            scope.rect = originalRect
+            resetMode()
+
+        scope.$on 'mouseMove', (e, event)->
+            scope.onMouseMove event
+        scope.$on 'mouseUp', (e, event)->
+            scope.onMouseUp event
+        scope.$on 'mouseLeave', (e, event)->
+            onMouseLeave event
+
+        scope.getHref = ->
+            $sce.trustAsResourceUrl scope.rect.href
+
+
 
 

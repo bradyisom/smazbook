@@ -1,9 +1,29 @@
-<rect ng-attr-x="{{rect.x}}" ng-attr-y="{{rect.y}}"
-    ng-attr-width="{{rect.width}}" ng-attr-height="{{rect.height}}"
-    style="fill:{{rect.fill}};cursor:move;"
-    ng-mousedown="onMouseDown($event, 'container')"
+<g ng-mousedown="onMouseDown($event, 'container')"
     ng-mousemove="onMouseMove($event)"
-    ng-mouseup="onMouseUp($event)"></rect>
+    ng-mouseup="onMouseUp($event)"
+    style="cursor:move">
+    <g ng-switch="rect.type">
+        <image ng-switch-when="image"
+            xlink:href="{{getHref()}}" ng-attr-x="{{rect.x}}" ng-attr-y="{{rect.y}}"
+            ng-attr-height="{{rect.height}}" ng-attr-width="{{rect.width}}"
+            style="" />
+<!--         <rect ng-switch-when="image"
+            ng-attr-x="{{rect.x}}" ng-attr-y="{{rect.y}}"
+            ng-attr-height="{{rect.height}}" ng-attr-width="{{rect.width}}"
+            ng-style="{'background-image':getHref()}" /> -->
+        <text ng-switch-when="text"
+             ng-attr-x="{{rect.x + rect.width/2}}" ng-attr-y="{{rect.y + rect.height/2}}"
+             text-anchor="middle"
+             style="">
+            {{rect.text}}
+        </text>
+        <rect ng-switch-default
+            ng-attr-x="{{rect.x}}" ng-attr-y="{{rect.y}}"
+            ng-attr-width="{{rect.width}}" ng-attr-height="{{rect.height}}"
+            style="fill:{{rect.fill}};width:100%;height:100%;">
+        </rect>
+    </g>
+</g>
 <rect ng-attr-x="{{rect.x-halfHandleSize}}" ng-attr-y="{{rect.y-halfHandleSize}}"
     ng-attr-width="{{handleSize}}" ng-attr-height="{{handleSize}}"
     style="fill:white;stroke:black;cursor:nw-resize;"

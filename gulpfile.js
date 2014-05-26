@@ -64,6 +64,10 @@ gulp.task('csslint', ['styles'], function () {
 /**
  * CoffeeScript
  */
+gulp.task('clean-coffee', function () {
+  return gulp.src('./.tmp/**/*.js').pipe(g.clean());
+});
+
 gulp.task('coffee', function () {
   return gulp.src([
     './src/app/**/*.coffee'

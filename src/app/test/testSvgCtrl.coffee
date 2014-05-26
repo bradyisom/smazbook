@@ -1,6 +1,6 @@
 class TestSvgCtrl
-    @$inject = ['$scope']
-    constructor: (@$scope)->
+    @$inject: ['$scope', 'WorkspaceState']
+    constructor: (@$scope, WorkspaceState)->
         @rects = [
             x: 100
             y: 100
@@ -26,6 +26,8 @@ class TestSvgCtrl
         ]
         @handleSize = 10
         @halfHandleSize = @handleSize / 2
+
+        @state = new WorkspaceState()
 
 
 angular.module('smazbook').controller 'TestSvgCtrl', TestSvgCtrl

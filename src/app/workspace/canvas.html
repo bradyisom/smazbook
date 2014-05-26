@@ -1,6 +1,6 @@
 <svg width="100%" height="500px" style="border:1px solid black;"
-    ng-mousemove="onMouseMove($event)"
-    ng-mouseup="onMouseUp($event)"
-    ng-mouseleave="onMouseLeave($event)">
-    <widget ng-repeat="rect in rects" rect="rect"></widget>
+    ng-mousemove="state.move($event)"
+    ng-mouseup="state.endMove($event)"
+    ng-mouseleave="state.cancelMove($event)">
+    <widget ng-repeat="rect in rects" state="state" rect="rect"></widget>
 </svg>

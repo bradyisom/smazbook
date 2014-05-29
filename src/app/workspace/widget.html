@@ -1,7 +1,8 @@
 <div class="canvas-widget">
     <div ng-if="isDivWidget(widget)"
-        ng-style="{position:'absolute',left:halfHandleSize,top:halfHandleSize,width:widget.width+handleSize}"
+        ng-style="{position:'absolute',left:state.halfHandleSize,top:state.halfHandleSize,width:widget.width+state.handleSize}"
         ng-mousedown="state.startMove($event, widget, 'container')"
+        ng-click="state.select(widget)"
         ng-switch="widget.type">
         <!-- IMAGE -->
         <img ng-switch-when="image" ng-src="{{getHref()}}"
@@ -18,81 +19,85 @@
     </div>
     <!-- TEXT RESIZE -->
     <svg ng-if="isTextWidget(widget)"
-        ng-style="{position:'absolute',right:-halfHandleSize,width:handleSize+1,top:'2em', left:widget.width, 'margin-top':-halfHandleSize, height:handleSize, 'margin-right':'-2em'}">
+        ng-show="state.selected == widget"
+        ng-style="{position:'absolute',right:-state.halfHandleSize,width:state.handleSize+1,top:'2em', left:widget.width, 'margin-top':-state.halfHandleSize, height:state.handleSize, 'margin-right':'-2em'}">
         <rect class="resize-handle resize-handle-ew"
             ng-attr-x="0"
             ng-attr-y="0"
-            ng-attr-width="{{handleSize}}"
-            ng-attr-height="{{handleSize}}"
+            ng-attr-width="{{state.handleSize}}"
+            ng-attr-height="{{state.handleSize}}"
             ng-mousedown="state.startMove($event, widget, 'ew')">
         </rect>
     </svg>
     <svg ng-if="isSvgWidget(widget) || !isTextWidget(widget)"
         style="position:absolute;left:0;right:0;top:0;bottom:0;cursor:move;"
-        ng-mousedown="state.startMove($event, widget, 'container')">
+        ng-mousedown="state.startMove($event, widget, 'container')"
+        ng-click="state.select(widget)">
         <g ng-if="isSvgWidget(widget)"
             style="cursor:move">
             <!-- RECT -->
-            <rect ng-attr-x="{{halfHandleSize}}"
-                ng-attr-y="{{halfHandleSize}}"
+            <rect ng-attr-x="{{state.halfHandleSize}}"
+                ng-attr-y="{{state.halfHandleSize}}"
                 ng-attr-width="{{widget.width}}"
                 ng-attr-height="{{widget.height}}"
                 style="fill:{{widget.fill}};width:100%;height:100%;">
             </rect>
         </g>
         <!-- SIZE HANDLES -->
-        <rect class="resize-handle resize-handle-nw"
-            ng-attr-x="0" ng-attr-y="0"
-            ng-attr-width="{{handleSize}}"
-            ng-attr-height="{{handleSize}}"
-            ng-mousedown="state.startMove($event, widget, 'nw')">
-        </rect>
-        <rect class="resize-handle resize-handle-ne"
-            ng-attr-x="{{widget.width}}" ng-attr-y="0"
-            ng-attr-width="{{handleSize}}"
-            ng-attr-height="{{handleSize}}"
-            ng-mousedown="state.startMove($event, widget, 'ne')">
-        </rect>
-        <rect class="resize-handle resize-handle-se"
-            ng-attr-x="{{widget.width}}"
-            ng-attr-y="{{widget.height}}"
-            ng-attr-width="{{handleSize}}"
-            ng-attr-height="{{handleSize}}"
-            ng-mousedown="state.startMove($event, widget, 'se')">
-        </rect>
-        <rect class="resize-handle resize-handle-sw"
-            ng-attr-x="0" ng-attr-y="{{widget.height}}"
-            ng-attr-width="{{handleSize}}"
-            ng-attr-height="{{handleSize}}"
-            ng-mousedown="state.startMove($event, widget, 'sw')">
-        </rect>
-        <rect class="resize-handle resize-handle-ew"
-            ng-attr-x="{{widget.width}}"
-            ng-attr-y="{{widget.height/2}}"
-            ng-attr-width="{{handleSize}}"
-            ng-attr-height="{{handleSize}}"
-            ng-mousedown="state.startMove($event, widget, 'ew')">
-        </rect>
-        <rect class="resize-handle resize-handle-ns"
-            ng-attr-x="{{widget.width/2}}"
-            ng-attr-y="{{widget.height}}"
-            ng-attr-width="{{handleSize}}"
-            ng-attr-height="{{handleSize}}"
-            ng-mousedown="state.startMove($event, widget, 'sn')">
-        </rect>
-        <rect class="resize-handle resize-handle-ew"
-            ng-attr-x="0"
-            ng-attr-y="{{widget.height/2}}"
-            ng-attr-width="{{handleSize}}"
-            ng-attr-height="{{handleSize}}"
-            ng-mousedown="state.startMove($event, widget, 'we')">
-        </rect>
-        <rect class="resize-handle resize-handle-ns"
-            ng-attr-x="{{widget.width/2}}"
-            ng-attr-y="0"
-            ng-attr-width="{{handleSize}}"
-            ng-attr-height="{{handleSize}}"
-            ng-mousedown="state.startMove($event, widget, 'ns')">
-        </rect>
+        <g ng-show="state.selected == widget">
+            <rect class="resize-handle resize-handle-nw"
+                ng-attr-x="0" ng-attr-y="0"
+                ng-attr-width="{{state.handleSize}}"
+                ng-attr-height="{{state.handleSize}}"
+                ng-mousedown="state.startMove($event, widget, 'nw')">
+            </rect>
+            <rect class="resize-handle resize-handle-ne"
+                ng-attr-x="{{widget.width}}" ng-attr-y="0"
+                ng-attr-width="{{state.handleSize}}"
+                ng-attr-height="{{state.handleSize}}"
+                ng-mousedown="state.startMove($event, widget, 'ne')">
+            </rect>
+            <rect class="resize-handle resize-handle-se"
+                ng-attr-x="{{widget.width}}"
+                ng-attr-y="{{widget.height}}"
+                ng-attr-width="{{state.handleSize}}"
+                ng-attr-height="{{state.handleSize}}"
+                ng-mousedown="state.startMove($event, widget, 'se')">
+            </rect>
+            <rect class="resize-handle resize-handle-sw"
+                ng-attr-x="0" ng-attr-y="{{widget.height}}"
+                ng-attr-width="{{state.handleSize}}"
+                ng-attr-height="{{state.handleSize}}"
+                ng-mousedown="state.startMove($event, widget, 'sw')">
+            </rect>
+            <rect class="resize-handle resize-handle-ew"
+                ng-attr-x="{{widget.width}}"
+                ng-attr-y="{{widget.height/2}}"
+                ng-attr-width="{{state.handleSize}}"
+                ng-attr-height="{{state.handleSize}}"
+                ng-mousedown="state.startMove($event, widget, 'ew')">
+            </rect>
+            <rect class="resize-handle resize-handle-ns"
+                ng-attr-x="{{widget.width/2}}"
+                ng-attr-y="{{widget.height}}"
+                ng-attr-width="{{state.handleSize}}"
+                ng-attr-height="{{state.handleSize}}"
+                ng-mousedown="state.startMove($event, widget, 'sn')">
+            </rect>
+            <rect class="resize-handle resize-handle-ew"
+                ng-attr-x="0"
+                ng-attr-y="{{widget.height/2}}"
+                ng-attr-width="{{state.handleSize}}"
+                ng-attr-height="{{state.handleSize}}"
+                ng-mousedown="state.startMove($event, widget, 'we')">
+            </rect>
+            <rect class="resize-handle resize-handle-ns"
+                ng-attr-x="{{widget.width/2}}"
+                ng-attr-y="0"
+                ng-attr-width="{{state.handleSize}}"
+                ng-attr-height="{{state.handleSize}}"
+                ng-mousedown="state.startMove($event, widget, 'ns')">
+            </rect>
+        </g>
     </svg>
 </div>

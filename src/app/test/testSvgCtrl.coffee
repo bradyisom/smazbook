@@ -2,12 +2,14 @@ class TestSvgCtrl
     @$inject: ['$scope', 'WorkspaceState']
     constructor: (@$scope, WorkspaceState)->
         @widgets = [
+            id: '1'
             x: 200
             y: 50
             width: 250
             height: 200
             fill: 'blue'
         ,
+            id: '2'
             x: 50
             y: 50
             width: 200
@@ -17,6 +19,7 @@ class TestSvgCtrl
             fill: 'green'
             stroke: 'yellow'
         ,
+            id: '3'
             x: 100
             y: 100
             width: 300
@@ -26,7 +29,7 @@ class TestSvgCtrl
             fill: 'red'
         ]
 
-        @state = new WorkspaceState()
+        @state = new WorkspaceState(@widgets)
 
 
 angular.module('smazbook').controller 'TestSvgCtrl', TestSvgCtrl

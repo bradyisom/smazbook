@@ -1,10 +1,18 @@
 class WorkspaceState
     # @$inject = []
-    constructor: ->
+    constructor: (widgets, handleSize)->
         @resetMove()
+        @selected = null
+        @widgets = widgets or []
+        @handleSize = handleSize or 15
+        @halfHandleSize = @handleSize / 2
         @
 
+    select: (widget)->
+        @selected = widget
+
     startMove: (event, widget, mode)->
+        @selected = widget
         @moveState =
             mode: mode
             widget: widget
@@ -89,6 +97,30 @@ class WorkspaceState
 
     resetMove: ->
         @moveState = null
+
+    moveToTop: ->
+        index = _.indexOf @widgets, @selected
+        return if index == -1
+        @widgets.splice index, 1
+        @widgets.push @selected
+
+    moveToBottom: ->
+        index = _.indexOf @widgets, @selected
+        return if index == -1
+        @widgets.splice index, 1
+        @widgets.unshift @selected
+
+    moveUp: ->
+        index = _.indexOf @widgets, @selected
+        return if index == -1 or index >= @widgets.length - 1
+        @widgets.splice index, 1
+        @widgets.splice index+1, 0, @selected
+
+    moveDown: ->
+        index = _.indexOf @widgets, @selected
+        return if index <= 0
+        @widgets.splice index, 1
+        @widgets.splice index-1, 0, @selected
 
 
 

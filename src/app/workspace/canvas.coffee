@@ -5,9 +5,5 @@ angular.module('smazbook')
     replace: true
     scope:
         state: '='
-        widgets: '='
     link: (scope, el, attrs)->
         el.css 'position', 'relative'
-
-        scope.handleSize = 15
-        scope.halfHandleSize = scope.handleSize / 2

@@ -4,6 +4,12 @@
     overflow:hidden;
 }
 
+canvas-widget {
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+}
+
 .resize-handle {
     fill: white;
     stroke: @textColor;
@@ -17,14 +23,18 @@
     cursor: ns-resize;
 }
 .resize-handle-nw {
-    cursor: nw-resize;
+    cursor: nwse-resize;
 }
 .resize-handle-ne {
-    cursor: ne-resize;
+    cursor: nesw-resize;
 }
 .resize-handle-se {
-    cursor: se-resize;
+    cursor: nwse-resize;
 }
 .resize-handle-sw {
-    cursor: sw-resize;
+    cursor: nesw-resize;
+}
+
+.rotate-handle {
+    cursor: pointer;
 }

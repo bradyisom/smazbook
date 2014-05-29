@@ -98,6 +98,9 @@ class WorkspaceState
     resetMove: ->
         @moveState = null
 
+    startRotate: ->
+
+
     moveToTop: ->
         index = _.indexOf @widgets, @selected
         return if index == -1
@@ -121,7 +124,6 @@ class WorkspaceState
         return if index <= 0
         @widgets.splice index, 1
         @widgets.splice index-1, 0, @selected
-
 
 
 

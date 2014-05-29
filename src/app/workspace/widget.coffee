@@ -1,7 +1,7 @@
 angular.module('smazbook').directive 'canvasWidget', ($sce)->
     templateUrl: '/smazbook/workspace/widget.html'
     restrict: 'EA'
-    replace: true
+    replace: false
     scope:
         state: '='
         widget: '='

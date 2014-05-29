@@ -98,6 +98,13 @@
                 ng-attr-height="{{state.handleSize}}"
                 ng-mousedown="state.startMove($event, widget, 'ns')">
             </rect>
+            <ellipse class="resize-handle rotate-handle"
+                ng-attr-cx="{{widget.width/2 - state.handleSize*2}}"
+                ng-attr-cy="{{widget.height + state.halfHandleSize}}"
+                ng-attr-rx="{{state.halfHandleSize}}"
+                ng-attr-ry="{{state.halfHandleSize}}"
+                ng-mousedown="state.startRotate($event, widget)">
+            </ellipse>
         </g>
     </svg>
 </div>

@@ -5,6 +5,6 @@
     <canvas-widget
         ng-repeat="widget in state.widgets track by widget.id"
         state="state" widget="widget"
-        ng-style="{position:'absolute',top:widget.y-state.halfHandleSize-1,left:widget.x-state.halfHandleSize-1,width:widget.width + state.handleSize + 2,height:widget.height + state.handleSize + 2}">
+        ng-style="{position:'absolute',top:widget.y-state.halfHandleSize-1,left:widget.x-state.halfHandleSize-1,width:widget.width + state.handleSize + 2,height:widget.height + state.handleSize + 2, transform:'rotate(' + (widget.rotate || 0) + 'deg)'}"}">
     </canvas-widget>
 </div>

@@ -27,7 +27,7 @@ class TestSvgCtrl
             type: 'image'
             href: 'http://lorempixel.com/300/300/technics'
             fill: 'red'
-            rotate: 45
+            # rotate: 45
         ]
 
         @state = new WorkspaceState(@widgets)

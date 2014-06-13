@@ -20,7 +20,7 @@
     <!-- TEXT RESIZE -->
     <svg ng-if="isTextWidget(widget)"
         ng-show="state.selected == widget"
-        ng-style="{position:'absolute',right:-state.halfHandleSize,width:state.handleSize+1,top:'2em', left:widget.width, 'margin-top':-state.halfHandleSize, height:state.handleSize, 'margin-right':'-2em'}">
+        ng-style="{position:'absolute',right:-state.halfHandleSize,width:state.handleSize+1,top:'2em', left:widget.width, 'margin-top':-state.halfHandleSize, height:state.handleSize*3, 'margin-right':'-2em'}">
         <rect class="resize-handle resize-handle-ew"
             ng-attr-x="0"
             ng-attr-y="0"
@@ -28,6 +28,13 @@
             ng-attr-height="{{state.handleSize}}"
             ng-mousedown="state.startMove($event, widget, 'ew')">
         </rect>
+        <ellipse class="resize-handle rotate-handle"
+            ng-attr-cx="{{state.halfHandleSize}}"
+            ng-attr-cy="{{state.handleSize*2}}"
+            ng-attr-rx="{{state.halfHandleSize}}"
+            ng-attr-ry="{{state.halfHandleSize}}"
+            ng-mousedown="state.startRotate($event, widget)">
+        </ellipse>
     </svg>
     <svg ng-if="isSvgWidget(widget) || !isTextWidget(widget)"
         style="position:absolute;left:0;right:0;top:0;bottom:0;cursor:move;"

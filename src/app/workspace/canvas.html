@@ -1,10 +1,10 @@
 <div class="workspace-canvas"
         ng-mousemove="state.move($event)"
         ng-mouseup="state.endMove($event)"
-        ng-mouseleave="state.cancelMove($event)">
+        ng-mouseleave="state.endMove($event)">
     <canvas-widget
         ng-repeat="widget in state.widgets track by widget.id"
         state="state" widget="widget"
-        ng-style="{position:'absolute',top:widget.y-state.halfHandleSize-1,left:widget.x-state.halfHandleSize-1,width:widget.width + state.handleSize + 2,height:widget.height + state.handleSize + 2, transform:'rotate(' + (widget.rotate || 0) + 'deg)'}"}">
+        ng-style="{position:'absolute',top:widget.y-state.halfHandleSize-1,left:widget.x-state.halfHandleSize-1,width:widget.width + state.handleSize + 2,height:widget.height + state.handleSize + 2, transform:'rotate(' + (widget.rotate || 0) + 'rad)'}"}">
     </canvas-widget>
 </div>
